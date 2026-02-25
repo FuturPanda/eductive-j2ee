@@ -1,0 +1,9 @@
+# https://taskfile.dev
+version: "3"
+tasks:
+    jakarta:
+        cmds:
+            - cd tp1-jakarta && mvn clean package wildfly:run
+    springboot:
+        cmds:
+            - cd tp1-springboot && mvn spring-boot:run
