@@ -1,0 +1,24 @@
+type: http_request
+model: http_request
+id: rq_zJYi3oJdKG
+createdAt: 2026-02-26T13:04:45.004283
+updatedAt: 2026-02-26T13:21:46.629481
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_ztZasnzezs
+authentication: {}
+authenticationType: null
+body:
+  text: |
+    {"email": "test@example.com", "password": "password123"}
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: null
+method: POST
+name: login
+sortPriority: 2000.0
+url: http://localhost:8081/api/auth/login
+urlParameters: []

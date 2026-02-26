@@ -1,0 +1,30 @@
+type: http_request
+model: http_request
+id: rq_Kxym6n8XWn
+createdAt: 2026-02-26T13:21:44.116586
+updatedAt: 2026-02-26T13:30:56.115460
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_ztZasnzezs
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "name": "Un nouveau produit",
+      "description": "Complete guide to Spring Boot",
+      "category" : "Categoijfrt",
+      "price": 49.99,
+      "stock": 100
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: null
+method: POST
+name: Create Product
+sortPriority: 3000.0
+url: http://localhost:8081/api/products
+urlParameters: []

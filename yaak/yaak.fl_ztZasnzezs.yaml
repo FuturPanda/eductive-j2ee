@@ -1,0 +1,14 @@
+type: folder
+model: folder
+id: fl_ztZasnzezs
+createdAt: 2026-02-26T13:04:38.585640
+updatedAt: 2026-02-26T13:13:19.583815
+workspaceId: wk_SVKWwxvdU4
+folderId: null
+authentication:
+  token: ${[ response.body.path(request='rq_zJYi3oJdKG', behavior='smart', ttl='0', result='first', join=b64'LCA', path=b64'JC50b2tlbg') ]}
+authenticationType: bearer
+description: ''
+headers: []
+name: TP4
+sortPriority: -1772111078583.0

@@ -1,0 +1,30 @@
+type: http_request
+model: http_request
+id: rq_EoJGXaH5ua
+createdAt: 2026-02-26T13:11:40.322119
+updatedAt: 2026-02-26T13:42:58.112992
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_ztZasnzezs
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Get Products
+sortPriority: 0.0
+url: http://localhost:8081/api/products
+urlParameters:
+- enabled: false
+  name: keyword
+  value: Spring
+  id: FSQmSawGas
+- enabled: true
+  name: page
+  value: '2'
+  id: xmdVgZeJAB
+- enabled: true
+  name: ''
+  value: ''
+  id: 7ZiUy6PgDC

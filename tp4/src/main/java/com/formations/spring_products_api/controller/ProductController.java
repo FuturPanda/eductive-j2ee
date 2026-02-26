@@ -1,17 +1,22 @@
 package com.formations.spring_products_api.controller;
 
+import com.formations.spring_products_api.dto.CreateProductRequest;
+import com.formations.spring_products_api.dto.PaginatedResponse;
 import com.formations.spring_products_api.dto.StockAdjustment;
 import com.formations.spring_products_api.model.Product;
 import com.formations.spring_products_api.service.ProductService;
-import java.math.BigDecimal;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.net.URI;
-import java.util.List;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/products")
+@Tag(name = "Products")
 public class ProductController {
 
 	private final ProductService productService;
@@ -21,30 +26,12 @@ public class ProductController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Product>> getAllProducts(
-		@RequestParam(required = false) String keyword
+	public ResponseEntity<PaginatedResponse<Product>> getAllProducts(
+		@PageableDefault Pageable pageable
 	) {
-		if (keyword != null && !keyword.isBlank()) {
-			return ResponseEntity.ok(productService.searchProducts(keyword));
-		}
-		return ResponseEntity.ok(productService.getAllProducts());
-	}
-
-	@GetMapping("/slow")
-	public ResponseEntity<List<Product>> getAllProductsSlow() {
-		return ResponseEntity.ok(productService.getAllProductsSlow());
-	}
-
-	@GetMapping("/fast")
-	public ResponseEntity<List<Product>> getAllProductsFast(
-		@RequestParam(defaultValue = "full") String graph
-	) {
-		if ("category".equals(graph)) {
-			return ResponseEntity.ok(
-				productService.getAllProductsWithCategoryGraph()
-			);
-		}
-		return ResponseEntity.ok(productService.getAllProductsWithFullGraph());
+		return ResponseEntity.ok(
+			PaginatedResponse.from(productService.getAllProducts(pageable))
+		);
 	}
 
 	@GetMapping("/{id}")
@@ -53,24 +40,10 @@ public class ProductController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-		Product created = productService.createProduct(product);
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-			.path("/{id}")
-			.buildAndExpand(created.getId())
-			.toUri();
-		return ResponseEntity.created(location).body(created);
-	}
-
-	@PostMapping("/with-category")
-	public ResponseEntity<Product> createProductWithCategory(
-		@RequestBody Product product,
-		@RequestParam String categoryName
+	public ResponseEntity<Product> createProduct(
+		@Valid @RequestBody CreateProductRequest request
 	) {
-		Product created = productService.createProductWithCategory(
-			product,
-			categoryName
-		);
+		Product created = productService.createProduct(request);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 			.path("/{id}")
 			.buildAndExpand(created.getId())
@@ -81,7 +54,7 @@ public class ProductController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Product> updateProduct(
 		@PathVariable Long id,
-		@RequestBody Product product
+		@Valid @RequestBody Product product
 	) {
 		return ResponseEntity.ok(productService.updateProduct(id, product));
 	}
@@ -109,13 +82,5 @@ public class ProductController {
 	public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
 		productService.deleteProduct(id);
 		return ResponseEntity.noContent().build();
-	}
-
-	@PostMapping("/test-rollback")
-	public ResponseEntity<Product> testRollback(
-		@RequestParam String name,
-		@RequestParam BigDecimal price
-	) {
-		return ResponseEntity.ok(productService.testRollback(name, price));
 	}
 }

@@ -1,5 +1,6 @@
 package com.formations.spring_products_api;
 
+import com.formations.spring_products_api.config.SpringProductProperties;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,8 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.web.server.ResponseStatusException;
 
 @SpringBootApplication
+@EnableConfigurationProperties(SpringProductProperties.class)
 public class SpringProductsApiApplication {
 
 	public static void main(String[] args) {
@@ -30,7 +36,6 @@ public class SpringProductsApiApplication {
 
 			if (count <= 0) {
 				statement.executeUpdate("CREATE DATABASE products");
-			} else {
 			}
 		} catch (SQLException e) {
 		} finally {

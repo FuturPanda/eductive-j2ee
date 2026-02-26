@@ -1,13 +1,18 @@
 package com.formations.spring_products_api.service;
 
-import com.formations.spring_products_api.exception.InvalidProductException;
+import com.formations.spring_products_api.dto.CreateProductRequest;
+import com.formations.spring_products_api.exception.DuplicateSkuException;
+import com.formations.spring_products_api.exception.InsufficientStockException;
 import com.formations.spring_products_api.exception.ProductNotFoundException;
 import com.formations.spring_products_api.model.Category;
 import com.formations.spring_products_api.model.Product;
+import com.formations.spring_products_api.model.Supplier;
 import com.formations.spring_products_api.repository.ICategoryRepository;
 import com.formations.spring_products_api.repository.IProductRepository;
-import java.math.BigDecimal;
+import com.formations.spring_products_api.repository.ISupplierRepository;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,13 +22,67 @@ public class ProductService {
 
 	private final IProductRepository productRepository;
 	private final ICategoryRepository categoryRepository;
+	private final ISupplierRepository supplierRepository;
 
 	public ProductService(
 		IProductRepository productRepository,
-		ICategoryRepository categoryRepository
+		ICategoryRepository categoryRepository,
+		ISupplierRepository supplierRepository
 	) {
 		this.productRepository = productRepository;
 		this.categoryRepository = categoryRepository;
+		this.supplierRepository = supplierRepository;
+	}
+
+	public Product createProduct(CreateProductRequest request) {
+		Product product = new Product();
+		product.setName(request.name());
+		product.setDescription(request.description());
+		product.setPrice(request.price());
+		product.setStock(request.stock());
+		product.setSku(request.sku());
+		product.setCategory(resolveCategory(request.category()));
+		if (request.supplier() != null && !request.supplier().isBlank()) {
+			product.setSupplier(resolveSupplier(request.supplier()));
+		}
+
+		return productRepository.save(product);
+	}
+
+	private Category resolveCategory(String categoryRef) {
+		try {
+			Long id = Long.parseLong(categoryRef);
+			return categoryRepository
+				.findById(id)
+				.orElseThrow(() ->
+					new RuntimeException("Category not found: " + categoryRef)
+				);
+		} catch (NumberFormatException e) {
+			return categoryRepository
+				.findByName(categoryRef)
+				.orElseGet(() -> {
+					Category newCategory = new Category();
+					newCategory.setName(categoryRef);
+					return categoryRepository.save(newCategory);
+				});
+		}
+	}
+
+	private Supplier resolveSupplier(String supplierRef) {
+		try {
+			Long id = Long.parseLong(supplierRef);
+			return supplierRepository
+				.findById(id)
+				.orElseThrow(() ->
+					new RuntimeException("Supplier not found: " + supplierRef)
+				);
+		} catch (NumberFormatException e) {
+			return supplierRepository
+				.findByName(supplierRef)
+				.orElseThrow(() ->
+					new RuntimeException("Supplier not found: " + supplierRef)
+				);
+		}
 	}
 
 	public Product createProduct(Product product) {
@@ -60,6 +119,11 @@ public class ProductService {
 	}
 
 	@Transactional(readOnly = true)
+	public Page<Product> getAllProducts(Pageable pageable) {
+		return productRepository.findAllWithRelations(pageable);
+	}
+
+	@Transactional(readOnly = true)
 	public List<Product> getAllProductsSlow() {
 		return productRepository.findAll();
 	}
@@ -79,6 +143,11 @@ public class ProductService {
 		return productRepository.searchByName(keyword);
 	}
 
+	@Transactional(readOnly = true)
+	public Page<Product> searchProducts(String keyword, Pageable pageable) {
+		return productRepository.searchByName(keyword, pageable);
+	}
+
 	public Product updateProduct(Long id, Product updatedProduct) {
 		return productRepository
 			.findById(id)
@@ -88,6 +157,7 @@ public class ProductService {
 				existing.setPrice(updatedProduct.getPrice());
 				existing.setCategory(updatedProduct.getCategory());
 				existing.setStock(updatedProduct.getStock());
+				existing.setSku(updatedProduct.getSku());
 				return productRepository.save(existing);
 			})
 			.orElseThrow(() -> new ProductNotFoundException(id.toString()));
@@ -110,7 +180,11 @@ public class ProductService {
 
 		int newStock = product.getStock() + quantity;
 		if (newStock < 0) {
-			throw new InvalidProductException("Stock cannot be negative");
+			throw new InsufficientStockException(
+				productId,
+				product.getStock(),
+				quantity
+			);
 		}
 
 		product.setStock(newStock);
@@ -119,14 +193,6 @@ public class ProductService {
 
 	@Transactional
 	public void transferProducts(Long fromCategoryId, Long toCategoryId) {
-		Category fromCategory = categoryRepository
-			.findById(fromCategoryId)
-			.orElseThrow(() ->
-				new RuntimeException(
-					"Source category not found: " + fromCategoryId
-				)
-			);
-
 		Category toCategory = categoryRepository
 			.findById(toCategoryId)
 			.orElseThrow(() ->
@@ -144,15 +210,5 @@ public class ProductService {
 		}
 
 		productRepository.saveAll(products);
-	}
-
-	@Transactional
-	public Product testRollback(String productName, BigDecimal price) {
-		Product p = new Product(productName, price);
-		productRepository.save(p);
-		productRepository.flush();
-		throw new RuntimeException(
-			"Test rollback - this product should NOT be in database"
-		);
 	}
 }

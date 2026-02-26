@@ -1,0 +1,36 @@
+package com.formations.spring_products_api.config;
+
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.RSAKey;
+import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+
+@Configuration
+public class JwtConfig {
+
+	private final SpringProductProperties properties;
+
+	public JwtConfig(SpringProductProperties properties) {
+		this.properties = properties;
+	}
+
+	@Bean
+	public JwtEncoder jwtEncoder() {
+		var security = properties.getSecurity();
+		RSAKey rsaKey = new RSAKey.Builder(security.getPublicKey())
+			.privateKey(security.getPrivateKey())
+			.keyID(security.getKeyId())
+			.build();
+		return new NimbusJwtEncoder(new ImmutableJWKSet<>(new JWKSet(rsaKey)));
+	}
+
+	@Bean
+	public JwtDecoder jwtDecoder() {
+		return NimbusJwtDecoder.withPublicKey(properties.getSecurity().getPublicKey()).build();
+	}
+}
