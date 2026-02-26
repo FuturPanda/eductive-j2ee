@@ -1,0 +1,23 @@
+type: http_request
+model: http_request
+id: rq_7Akodhdheb
+createdAt: 2026-02-26T09:31:09.693675
+updatedAt: 2026-02-26T09:31:09.693675
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_dK4ZpF5Soa
+authentication: {}
+authenticationType: null
+body:
+  text: '{"name": "Books", "description": "Books and literature"}'
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: null
+method: POST
+name: ''
+sortPriority: 0.0
+url: http://localhost:8081/api/categories
+urlParameters: []

@@ -1,0 +1,23 @@
+type: http_request
+model: http_request
+id: rq_ai4gFWnUeu
+createdAt: 2026-02-26T09:31:09.691819
+updatedAt: 2026-02-26T09:31:09.691819
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_BPPcD7dFM3
+authentication: {}
+authenticationType: null
+body:
+  text: '{"name": "Spring Boot Pro Guide", "description": "Advanced Spring Boot", "price": 59.99, "stock": 50}'
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: null
+method: PUT
+name: ''
+sortPriority: 0.0
+url: http://localhost:8081/api/products/1
+urlParameters: []

@@ -1,0 +1,13 @@
+type: folder
+model: folder
+id: fl_aKy8JbGPrx
+createdAt: 2026-02-26T09:31:09.694649
+updatedAt: 2026-02-26T09:31:09.694649
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_hy3xC8tCFX
+authentication: {}
+authenticationType: null
+description: ''
+headers: []
+name: categories
+sortPriority: 2000.001

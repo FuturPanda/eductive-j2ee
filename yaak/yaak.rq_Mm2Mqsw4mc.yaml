@@ -1,0 +1,22 @@
+type: http_request
+model: http_request
+id: rq_Mm2Mqsw4mc
+createdAt: 2026-02-26T09:31:09.688047
+updatedAt: 2026-02-26T09:31:09.688048
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_d5G9soTyDM
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: PATCH
+name: update order
+sortPriority: 0.0
+url: http://localhost:8081/api/orders/1/items/2
+urlParameters:
+- enabled: true
+  name: quantity
+  value: '5'
+  id: null

@@ -1,0 +1,18 @@
+type: http_request
+model: http_request
+id: rq_j56HHpf6nu
+createdAt: 2026-02-26T09:31:09.692234
+updatedAt: 2026-02-26T09:32:10.980094
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_BPPcD7dFM3
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Get product by id
+sortPriority: 0.0
+url: http://localhost:8081/api/products/1
+urlParameters: []

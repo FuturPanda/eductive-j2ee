@@ -1,0 +1,23 @@
+type: http_request
+model: http_request
+id: rq_cwMreMEars
+createdAt: 2026-02-26T09:31:09.692912
+updatedAt: 2026-02-26T09:31:38.300930
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_BPPcD7dFM3
+authentication: {}
+authenticationType: null
+body:
+  text: '{"name": "", "description": "Complete guide to Spring Boot", "price": 49.99, "stock": 100}'
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: null
+method: POST
+name: Create Product
+sortPriority: 0.0
+url: http://localhost:8081/api/products
+urlParameters: []

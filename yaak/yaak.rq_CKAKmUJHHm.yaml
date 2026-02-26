@@ -1,0 +1,23 @@
+type: http_request
+model: http_request
+id: rq_CKAKmUJHHm
+createdAt: 2026-02-26T09:31:09.695322
+updatedAt: 2026-02-26T09:31:09.695322
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_aKy8JbGPrx
+authentication: {}
+authenticationType: null
+body:
+  text: '{"name": "Electronics Updated", "description": "Updated description"}'
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: null
+method: PUT
+name: ''
+sortPriority: 802.4691358024692
+url: http://localhost:8081/api/categories/1
+urlParameters: []

@@ -1,0 +1,22 @@
+type: http_request
+model: http_request
+id: rq_gnwDz9WmhP
+createdAt: 2026-02-26T09:31:09.695693
+updatedAt: 2026-02-26T09:31:09.695693
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_aKy8JbGPrx
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: ''
+sortPriority: 333.3333333333333
+url: http://localhost:8081/api/categories/search
+urlParameters:
+- enabled: true
+  name: name
+  value: Electronics
+  id: null

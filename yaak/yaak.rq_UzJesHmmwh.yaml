@@ -1,0 +1,29 @@
+type: http_request
+model: http_request
+id: rq_UzJesHmmwh
+createdAt: 2026-02-26T09:34:52.781276
+updatedAt: 2026-02-26T09:35:17.377103
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_BPPcD7dFM3
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "name": "jhifehj",
+      "price": -10,
+      "stock": -5,
+      "sku": "invalid"
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: null
+method: POST
+name: Test erreurs
+sortPriority: 0.0
+url: http://localhost:8081/api/products
+urlParameters: []

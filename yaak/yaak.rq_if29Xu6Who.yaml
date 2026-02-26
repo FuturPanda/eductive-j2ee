@@ -1,0 +1,23 @@
+type: http_request
+model: http_request
+id: rq_if29Xu6Who
+createdAt: 2026-02-26T09:31:09.691676
+updatedAt: 2026-02-26T09:31:09.691677
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_BPPcD7dFM3
+authentication: {}
+authenticationType: null
+body:
+  text: '{"quantity": 25}'
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: null
+method: PATCH
+name: ''
+sortPriority: 0.0
+url: http://localhost:8081/api/products/1/stock
+urlParameters: []

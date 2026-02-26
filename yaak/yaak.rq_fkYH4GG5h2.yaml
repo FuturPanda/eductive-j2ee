@@ -1,0 +1,31 @@
+type: http_request
+model: http_request
+id: rq_fkYH4GG5h2
+createdAt: 2026-02-26T09:36:13.526304
+updatedAt: 2026-02-26T09:37:11.331154
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_d5G9soTyDM
+authentication: {}
+authenticationType: null
+body:
+  text: '{"27": 2}'
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: null
+method: POST
+name: ''
+sortPriority: 0.0
+url: http://localhost:8081/api/orders
+urlParameters:
+- enabled: true
+  name: customerName
+  value: John
+  id: null
+- enabled: true
+  name: customerEmail
+  value: pas-un-email
+  id: null

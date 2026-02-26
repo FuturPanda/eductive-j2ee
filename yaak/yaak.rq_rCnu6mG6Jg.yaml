@@ -1,0 +1,23 @@
+type: http_request
+model: http_request
+id: rq_rCnu6mG6Jg
+createdAt: 2026-02-26T09:31:09.694433
+updatedAt: 2026-02-26T09:31:09.694433
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_dK4ZpF5Soa
+authentication: {}
+authenticationType: null
+body:
+  text: '{"name": "TechSupply Co", "contactEmail": "contact@techsupply.com", "phone": "+33612345678"}'
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: null
+method: POST
+name: localhost:8081/api/suppliers
+sortPriority: 0.0
+url: http://localhost:8081/api/suppliers
+urlParameters: []

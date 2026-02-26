@@ -1,0 +1,22 @@
+type: http_request
+model: http_request
+id: rq_fPSCLRKnAd
+createdAt: 2026-02-26T09:31:09.688719
+updatedAt: 2026-02-26T09:31:09.688719
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_d5G9soTyDM
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: PATCH
+name: ''
+sortPriority: 0.0
+url: http://localhost:8081/api/orders/1/status
+urlParameters:
+- enabled: true
+  name: status
+  value: CONFIRMED
+  id: null

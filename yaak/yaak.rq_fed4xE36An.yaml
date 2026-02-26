@@ -1,0 +1,22 @@
+type: http_request
+model: http_request
+id: rq_fed4xE36An
+createdAt: 2026-02-26T09:31:09.691963
+updatedAt: 2026-02-26T09:31:09.691963
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_BPPcD7dFM3
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: ''
+sortPriority: 0.0
+url: http://localhost:8081/api/products
+urlParameters:
+- enabled: true
+  name: keyword
+  value: Spring
+  id: null

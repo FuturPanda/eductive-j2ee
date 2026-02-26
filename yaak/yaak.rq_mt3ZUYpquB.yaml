@@ -1,0 +1,36 @@
+type: http_request
+model: http_request
+id: rq_mt3ZUYpquB
+createdAt: 2026-02-26T09:31:09.686936
+updatedAt: 2026-02-26T09:31:09.686937
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_d5G9soTyDM
+authentication: {}
+authenticationType: null
+body:
+  text: |
+    {
+      "26": 2,
+      "27": 90,
+      "28": 45
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: null
+method: POST
+name: create order
+sortPriority: 0.0
+url: http://localhost:8081/api/orders
+urlParameters:
+- enabled: true
+  name: customerName
+  value: John Doe
+  id: null
+- enabled: true
+  name: customerEmail
+  value: john@example.com
+  id: null
