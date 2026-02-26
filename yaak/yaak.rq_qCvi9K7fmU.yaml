@@ -1,0 +1,22 @@
+type: http_request
+model: http_request
+id: rq_qCvi9K7fmU
+createdAt: 2026-02-23T21:12:35.391531
+updatedAt: 2026-02-25T16:16:31.185434
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_dq2uAxFdDm
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Get products by category
+sortPriority: 1000.0
+url: http://localhost:8081/api/products
+urlParameters:
+- enabled: true
+  name: category
+  value: technology
+  id: null

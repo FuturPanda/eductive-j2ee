@@ -1,0 +1,30 @@
+type: http_request
+model: http_request
+id: rq_QeiFs8eyfs
+createdAt: 2026-02-23T21:12:55.507293
+updatedAt: 2026-02-25T16:16:31.187888
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_dq2uAxFdDm
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "name": "New Product",
+      "price": 99.99,
+      "category": "electronics",
+      "description": "A new product",
+      "stock": 10
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: null
+method: POST
+name: Create product
+sortPriority: 2000.0
+url: http://localhost:8081/api/products
+urlParameters: []

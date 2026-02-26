@@ -1,0 +1,38 @@
+type: http_request
+model: http_request
+id: rq_HpGygEVooV
+createdAt: 2026-02-23T21:50:26.411033
+updatedAt: 2026-02-23T21:50:26.411033
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_oJnsiNTfX2
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "name": "Updated Product",
+      "price": 149.99,
+      "category": "electronics",
+      "description": "Updated description",
+      "stock": 20
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: null
+method: PUT
+name: Update product by id
+sortPriority: 4000.0
+url: http://localhost:8081/api/products/:id
+urlParameters:
+- enabled: true
+  name: :id
+  value: 1a7e1b28-ce3f-44d2-88cd-dbca2805e817
+  id: z9PX7WEU4S
+- enabled: true
+  name: ''
+  value: ''
+  id: mXIQggw6I8

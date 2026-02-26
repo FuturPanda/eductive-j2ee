@@ -1,0 +1,34 @@
+type: http_request
+model: http_request
+id: rq_WHNRPAX2yz
+createdAt: 2026-02-23T21:50:26.410795
+updatedAt: 2026-02-23T21:50:26.410796
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_oJnsiNTfX2
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "quantity": 5
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: null
+method: PATCH
+name: Update Stock plus
+sortPriority: 6000.0
+url: http://localhost:8081/api/products/:id/stock
+urlParameters:
+- enabled: true
+  name: :id
+  value: ${[ response.body.path(request='rq_QeiFs8eyfs', behavior='smart', ttl='0', result='first', join=b64'LCA', path=b64'JC5pZA') ]}
+  id: AVDD5jrX2y
+- enabled: true
+  name: ''
+  value: ''
+  id: hcrF5s7mtv

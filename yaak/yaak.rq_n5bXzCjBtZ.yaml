@@ -1,0 +1,26 @@
+type: http_request
+model: http_request
+id: rq_n5bXzCjBtZ
+createdAt: 2026-02-26T07:47:53.259545
+updatedAt: 2026-02-26T07:47:58.031037
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_yutMaEzsiy
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: POST
+name: Testrollback
+sortPriority: 0.0
+url: http://localhost:8081/api/products/test-rollback
+urlParameters:
+- enabled: true
+  name: name
+  value: ROLLBACK_TEST
+  id: null
+- enabled: true
+  name: price
+  value: '999.99'
+  id: null

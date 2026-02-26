@@ -1,0 +1,22 @@
+type: http_request
+model: http_request
+id: rq_9aNKdh7Wta
+createdAt: 2026-02-23T21:50:26.411683
+updatedAt: 2026-02-23T21:51:20.383792
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_oJnsiNTfX2
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Get products by category
+sortPriority: 1000.0
+url: ${[ BASE_URL_JAKARTA ]}/products
+urlParameters:
+- enabled: true
+  name: category
+  value: technology
+  id: null

@@ -1,0 +1,26 @@
+type: http_request
+model: http_request
+id: rq_ycGvqWqZPK
+createdAt: 2026-02-23T21:50:26.411533
+updatedAt: 2026-02-23T21:51:42.343249
+workspaceId: wk_SVKWwxvdU4
+folderId: fl_oJnsiNTfX2
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Get product by id
+sortPriority: 3000.0
+url: ${[ BASE_URL_JAKARTA ]}/products/:id
+urlParameters:
+- enabled: true
+  name: :id
+  value: 1a7e1b28-ce3f-44d2-88cd-dbca2805e817
+  id: MZtSzbaCZb
+- enabled: true
+  name: ''
+  value: ''
+  id: Y5kmGGd24I
