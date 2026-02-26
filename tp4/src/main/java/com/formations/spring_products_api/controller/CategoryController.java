@@ -1,5 +1,7 @@
 package com.formations.spring_products_api.controller;
 
+import com.formations.spring_products_api.dto.CreateCategoryRequest;
+import com.formations.spring_products_api.dto.UpdateCategoryRequest;
 import com.formations.spring_products_api.model.Category;
 import com.formations.spring_products_api.service.CategoryService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,12 +37,9 @@ public class CategoryController {
 
 	@PostMapping
 	public ResponseEntity<Category> createCategory(
-		@Valid @RequestBody Category category
+		@Valid @RequestBody CreateCategoryRequest request
 	) {
-		Category created = categoryService.createCategory(
-			category.getName(),
-			category.getDescription()
-		);
+		Category created = categoryService.createCategory(request);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 			.path("/{id}")
 			.buildAndExpand(created.getId())
@@ -51,9 +50,9 @@ public class CategoryController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Category> updateCategory(
 		@PathVariable Long id,
-		@Valid @RequestBody Category category
+		@Valid @RequestBody UpdateCategoryRequest request
 	) {
-		return ResponseEntity.ok(categoryService.updateCategory(id, category));
+		return ResponseEntity.ok(categoryService.updateCategory(id, request));
 	}
 
 	@DeleteMapping("/{id}")

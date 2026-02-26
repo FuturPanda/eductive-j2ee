@@ -1,6 +1,5 @@
 package com.formations.spring_products_api;
 
-import java.lang.System.Logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

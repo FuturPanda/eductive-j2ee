@@ -1,8 +1,10 @@
 package com.formations.spring_products_api.controller;
 
+import com.formations.spring_products_api.dto.AddItemRequest;
 import com.formations.spring_products_api.dto.CreateOrderRequest;
+import com.formations.spring_products_api.dto.UpdateItemQuantityRequest;
+import com.formations.spring_products_api.dto.UpdateOrderStatusRequest;
 import com.formations.spring_products_api.model.Order;
-import com.formations.spring_products_api.model.OrderStatus;
 import com.formations.spring_products_api.service.OrderService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -54,20 +56,23 @@ public class OrderController {
 	@PatchMapping("/{id}/status")
 	public ResponseEntity<Void> updateOrderStatus(
 		@PathVariable Long id,
-		@RequestParam OrderStatus status
+		@Valid @RequestBody UpdateOrderStatusRequest request
 	) {
-		orderService.updateOrderStatus(id, status);
-		return ResponseEntity.ok().build();
+		orderService.updateOrderStatus(id, request.status());
+		return ResponseEntity.noContent().build();
 	}
 
 	@PostMapping("/{orderId}/items")
 	public ResponseEntity<Order> addItem(
 		@PathVariable Long orderId,
-		@RequestParam Long productId,
-		@RequestParam int quantity
+		@Valid @RequestBody AddItemRequest request
 	) {
 		return ResponseEntity.ok(
-			orderService.addItemToOrder(orderId, productId, quantity)
+			orderService.addItemToOrder(
+				orderId,
+				request.productId(),
+				request.quantity()
+			)
 		);
 	}
 
@@ -75,10 +80,10 @@ public class OrderController {
 	public ResponseEntity<Order> updateItemQuantity(
 		@PathVariable Long orderId,
 		@PathVariable Long itemId,
-		@RequestParam int quantity
+		@Valid @RequestBody UpdateItemQuantityRequest request
 	) {
 		return ResponseEntity.ok(
-			orderService.updateItemQuantity(orderId, itemId, quantity)
+			orderService.updateItemQuantity(orderId, itemId, request.quantity())
 		);
 	}
 

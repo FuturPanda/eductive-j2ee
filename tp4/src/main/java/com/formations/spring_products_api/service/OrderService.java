@@ -1,5 +1,7 @@
 package com.formations.spring_products_api.service;
 
+import com.formations.spring_products_api.exception.OrderNotFoundException;
+import com.formations.spring_products_api.exception.ProductNotFoundException;
 import com.formations.spring_products_api.model.Order;
 import com.formations.spring_products_api.model.OrderItem;
 import com.formations.spring_products_api.model.OrderStatus;
@@ -18,21 +20,34 @@ public class OrderService {
 	private final IOrderRepository orderRepository;
 	private final IProductRepository productRepository;
 
-	public OrderService(IOrderRepository orderRepository, IProductRepository productRepository) {
+	public OrderService(
+		IOrderRepository orderRepository,
+		IProductRepository productRepository
+	) {
 		this.orderRepository = orderRepository;
 		this.productRepository = productRepository;
 	}
 
 	@Transactional
-	public Order createOrder(String customerName, String customerEmail, Map<Long, Integer> productsAndQuantities) {
+	public Order createOrder(
+		String customerName,
+		String customerEmail,
+		Map<Long, Integer> productsAndQuantities
+	) {
 		Order order = new Order(customerName, customerEmail);
 
-		for (Map.Entry<Long, Integer> entry : productsAndQuantities.entrySet()) {
+		for (Map.Entry<
+			Long,
+			Integer
+		> entry : productsAndQuantities.entrySet()) {
 			Long productId = entry.getKey();
 			Integer quantity = entry.getValue();
 
-			Product product = productRepository.findById(productId)
-				.orElseThrow(() -> new RuntimeException("Product not found: " + productId));
+			Product product = productRepository
+				.findById(productId)
+				.orElseThrow(() ->
+					new ProductNotFoundException(productId.toString())
+				);
 
 			OrderItem item = new OrderItem(product, quantity);
 			order.addItem(item);
@@ -44,15 +59,17 @@ public class OrderService {
 
 	@Transactional
 	public void updateOrderStatus(Long orderId, OrderStatus newStatus) {
-		Order order = orderRepository.findById(orderId)
-			.orElseThrow(() -> new RuntimeException("Order not found: " + orderId));
+		Order order = orderRepository
+			.findById(orderId)
+			.orElseThrow(() -> new OrderNotFoundException(orderId.toString()));
 		order.setStatus(newStatus);
 	}
 
 	@Transactional(readOnly = true)
 	public Order getOrderWithItems(Long id) {
-		return orderRepository.findByIdWithItems(id)
-			.orElseThrow(() -> new RuntimeException("Order not found: " + id));
+		return orderRepository
+			.findByIdWithItems(id)
+			.orElseThrow(() -> new OrderNotFoundException(id.toString()));
 	}
 
 	@Transactional(readOnly = true)
@@ -72,55 +89,73 @@ public class OrderService {
 
 	@Transactional
 	public Order addItemToOrder(Long orderId, Long productId, int quantity) {
-		Order order = orderRepository.findByIdWithItems(orderId)
-			.orElseThrow(() -> new RuntimeException("Order not found: " + orderId));
+		Order order = orderRepository
+			.findByIdWithItems(orderId)
+			.orElseThrow(() -> new OrderNotFoundException(orderId.toString()));
 
-		Product product = productRepository.findById(productId)
-			.orElseThrow(() -> new RuntimeException("Product not found: " + productId));
+		Product product = productRepository
+			.findById(productId)
+			.orElseThrow(() ->
+				new ProductNotFoundException(productId.toString())
+			);
 
 		OrderItem item = new OrderItem(product, quantity);
 		order.addItem(item);
 		order.calculateTotal();
-		
+
 		return orderRepository.save(order);
 	}
 
 	@Transactional
-	public Order updateItemQuantity(Long orderId, Long itemId, int newQuantity) {
-		Order order = orderRepository.findByIdWithItems(orderId)
-			.orElseThrow(() -> new RuntimeException("Order not found: " + orderId));
+	public Order updateItemQuantity(
+		Long orderId,
+		Long itemId,
+		int newQuantity
+	) {
+		Order order = orderRepository
+			.findByIdWithItems(orderId)
+			.orElseThrow(() -> new OrderNotFoundException(orderId.toString()));
 
-		OrderItem item = order.getItems().stream()
+		OrderItem item = order
+			.getItems()
+			.stream()
 			.filter(i -> i.getId().equals(itemId))
 			.findFirst()
-			.orElseThrow(() -> new RuntimeException("OrderItem not found: " + itemId));
+			.orElseThrow(() ->
+				new RuntimeException("OrderItem not found: " + itemId)
+			);
 
 		item.setQuantity(newQuantity);
 		order.calculateTotal();
-		
+
 		return orderRepository.save(order);
 	}
 
 	@Transactional
 	public Order removeItemFromOrder(Long orderId, Long itemId) {
-		Order order = orderRepository.findByIdWithItems(orderId)
-			.orElseThrow(() -> new RuntimeException("Order not found: " + orderId));
+		Order order = orderRepository
+			.findByIdWithItems(orderId)
+			.orElseThrow(() -> new OrderNotFoundException(orderId.toString()));
 
-		OrderItem itemToRemove = order.getItems().stream()
+		OrderItem itemToRemove = order
+			.getItems()
+			.stream()
 			.filter(i -> i.getId().equals(itemId))
 			.findFirst()
-			.orElseThrow(() -> new RuntimeException("OrderItem not found: " + itemId));
+			.orElseThrow(() ->
+				new RuntimeException("OrderItem not found: " + itemId)
+			);
 
 		order.removeItem(itemToRemove);
 		order.calculateTotal();
-		
+
 		return orderRepository.save(order);
 	}
 
 	@Transactional
 	public void deleteOrder(Long id) {
 		if (!orderRepository.existsById(id)) {
-			throw new RuntimeException("Order not found: " + id);
+			throw new OrderNotFoundException(id.toString());
 		}
 		orderRepository.deleteById(id);
 	}

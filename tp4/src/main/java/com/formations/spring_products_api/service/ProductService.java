@@ -1,7 +1,7 @@
 package com.formations.spring_products_api.service;
 
 import com.formations.spring_products_api.dto.CreateProductRequest;
-import com.formations.spring_products_api.exception.DuplicateSkuException;
+import com.formations.spring_products_api.dto.UpdateProductRequest;
 import com.formations.spring_products_api.exception.InsufficientStockException;
 import com.formations.spring_products_api.exception.ProductNotFoundException;
 import com.formations.spring_products_api.model.Category;
@@ -158,6 +158,26 @@ public class ProductService {
 				existing.setCategory(updatedProduct.getCategory());
 				existing.setStock(updatedProduct.getStock());
 				existing.setSku(updatedProduct.getSku());
+				return productRepository.save(existing);
+			})
+			.orElseThrow(() -> new ProductNotFoundException(id.toString()));
+	}
+
+	public Product updateProduct(Long id, UpdateProductRequest request) {
+		return productRepository
+			.findById(id)
+			.map(existing -> {
+				existing.setName(request.name());
+				existing.setDescription(request.description());
+				existing.setPrice(request.price());
+				existing.setCategory(resolveCategory(request.category()));
+				existing.setStock(request.stock());
+				existing.setSku(request.sku());
+				if (
+					request.supplier() != null && !request.supplier().isBlank()
+				) {
+					existing.setSupplier(resolveSupplier(request.supplier()));
+				}
 				return productRepository.save(existing);
 			})
 			.orElseThrow(() -> new ProductNotFoundException(id.toString()));

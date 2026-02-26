@@ -10,7 +10,6 @@ import com.formations.spring_products_api.security.jwt.JwtUserDetails;
 import com.formations.spring_products_api.security.jwt.JwtUserDetailsClaimAdapter;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;

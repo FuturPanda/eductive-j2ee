@@ -1,5 +1,7 @@
 package com.formations.spring_products_api.service;
 
+import com.formations.spring_products_api.dto.CreateCategoryRequest;
+import com.formations.spring_products_api.dto.UpdateCategoryRequest;
 import com.formations.spring_products_api.exception.CategoryHasProductsException;
 import com.formations.spring_products_api.exception.CategoryNotFoundException;
 import com.formations.spring_products_api.model.Category;
@@ -21,10 +23,9 @@ public class CategoryService {
 		this.productRepository = productRepository;
 	}
 
-	public Category createCategory(String name, String description) {
-		Category category = new Category();
-		category.setName(name);
-		category.setDescription(description);
+	public Category createCategory(CreateCategoryRequest request) {
+		Category category = new Category(request.name());
+		category.setDescription(request.description());
 		return categoryRepository.save(category);
 	}
 
@@ -52,11 +53,11 @@ public class CategoryService {
 		categoryRepository.deleteById(id);
 	}
 
-	public Category updateCategory(Long id, Category updatedCategory) {
+	public Category updateCategory(Long id, UpdateCategoryRequest request) {
 		return categoryRepository.findById(id)
 			.map(existing -> {
-				existing.setName(updatedCategory.getName());
-				existing.setDescription(updatedCategory.getDescription());
+				existing.setName(request.name());
+				existing.setDescription(request.description());
 				return categoryRepository.save(existing);
 			})
 			.orElseThrow(() -> new CategoryNotFoundException(id.toString()));

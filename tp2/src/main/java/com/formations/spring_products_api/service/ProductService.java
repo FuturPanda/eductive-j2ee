@@ -119,14 +119,6 @@ public class ProductService {
 
 	@Transactional
 	public void transferProducts(Long fromCategoryId, Long toCategoryId) {
-		Category fromCategory = categoryRepository
-			.findById(fromCategoryId)
-			.orElseThrow(() ->
-				new RuntimeException(
-					"Source category not found: " + fromCategoryId
-				)
-			);
-
 		Category toCategory = categoryRepository
 			.findById(toCategoryId)
 			.orElseThrow(() ->

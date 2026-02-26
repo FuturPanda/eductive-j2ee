@@ -1,5 +1,6 @@
 package com.formations.spring_products_api.service;
 
+import com.formations.spring_products_api.dto.CreateSupplierRequest;
 import com.formations.spring_products_api.model.Supplier;
 import com.formations.spring_products_api.repository.ISupplierRepository;
 import java.util.List;
@@ -29,16 +30,20 @@ public class SupplierService {
 		return supplierRepository.findById(id);
 	}
 
-	public Supplier createSupplier(Supplier supplier) {
-		Supplier created = supplierRepository.save(supplier);
-		return created;
+	public Supplier createSupplier(CreateSupplierRequest request) {
+		Supplier supplier = new Supplier(
+			request.name(),
+			request.contactEmail(),
+			request.phone()
+		);
+		return supplierRepository.save(supplier);
 	}
 
-	public Optional<Supplier> updateSupplier(Long id, Supplier supplier) {
+	public Optional<Supplier> updateSupplier(Long id, CreateSupplierRequest request) {
 		return supplierRepository.findById(id).map(existing -> {
-			existing.setName(supplier.getName());
-			existing.setContactEmail(supplier.getContactEmail());
-			existing.setPhone(supplier.getPhone());
+			existing.setName(request.name());
+			existing.setContactEmail(request.contactEmail());
+			existing.setPhone(request.phone());
 			return supplierRepository.save(existing);
 		});
 	}

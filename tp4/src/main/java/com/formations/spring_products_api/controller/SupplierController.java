@@ -1,8 +1,10 @@
 package com.formations.spring_products_api.controller;
 
+import com.formations.spring_products_api.dto.CreateSupplierRequest;
 import com.formations.spring_products_api.model.Supplier;
 import com.formations.spring_products_api.service.SupplierService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
@@ -40,9 +42,9 @@ public class SupplierController {
 
 	@PostMapping
 	public ResponseEntity<Supplier> createSupplier(
-		@RequestBody Supplier supplier
+		@Valid @RequestBody CreateSupplierRequest request
 	) {
-		Supplier created = supplierService.createSupplier(supplier);
+		Supplier created = supplierService.createSupplier(request);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 			.path("/{id}")
 			.buildAndExpand(created.getId())
@@ -53,10 +55,10 @@ public class SupplierController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Supplier> updateSupplier(
 		@PathVariable Long id,
-		@RequestBody Supplier supplier
+		@Valid @RequestBody CreateSupplierRequest request
 	) {
 		return supplierService
-			.updateSupplier(id, supplier)
+			.updateSupplier(id, request)
 			.map(ResponseEntity::ok)
 			.orElse(ResponseEntity.notFound().build());
 	}

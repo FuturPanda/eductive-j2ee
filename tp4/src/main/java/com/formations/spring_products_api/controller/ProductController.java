@@ -3,6 +3,7 @@ package com.formations.spring_products_api.controller;
 import com.formations.spring_products_api.dto.CreateProductRequest;
 import com.formations.spring_products_api.dto.PaginatedResponse;
 import com.formations.spring_products_api.dto.StockAdjustment;
+import com.formations.spring_products_api.dto.UpdateProductRequest;
 import com.formations.spring_products_api.model.Product;
 import com.formations.spring_products_api.service.ProductService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -54,9 +55,9 @@ public class ProductController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Product> updateProduct(
 		@PathVariable Long id,
-		@Valid @RequestBody Product product
+		@Valid @RequestBody UpdateProductRequest request
 	) {
-		return ResponseEntity.ok(productService.updateProduct(id, product));
+		return ResponseEntity.ok(productService.updateProduct(id, request));
 	}
 
 	@PatchMapping("/{id}/stock")
